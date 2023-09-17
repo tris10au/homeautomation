@@ -6,7 +6,7 @@ from . import Task
 from homeautomation.models.amber import *
 from homeautomation.models.alphaess import *
 from homeautomation.models.price_notifications import *
-import homeautomation.notifications
+from homeautomation import notifications
 from sentry_sdk.crons import monitor
 
 

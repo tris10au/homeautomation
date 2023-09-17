@@ -3,11 +3,11 @@ import sys
 
 
 requires = [
-    "requests",
-    "openpower",
-    "sentry-sdk",
-    "sqlalchemy",
-    "mariadb",
+    "requests==2.31.0",
+    "openpower==0.1.3",
+    "sentry-sdk==1.29.2",
+    "sqlalchemy==2.0.20",
+    "mariadb==1.1.7",
 ]
 
 setup(

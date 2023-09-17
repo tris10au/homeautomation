@@ -1,0 +1,4 @@
+sqlalchemy
+openpower
+mariadb
+sentry-sdk==1.29.2

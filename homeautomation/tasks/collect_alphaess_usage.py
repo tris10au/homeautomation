@@ -1,6 +1,7 @@
 from openpower.alphaess import AlphaESS
 from datetime import datetime, timezone
 import os
+import logging
 from typing import Optional
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
@@ -8,6 +9,7 @@ from . import Task
 from homeautomation.models.alphaess import *
 from sentry_sdk.crons import monitor
 
+LOGGER = logging.getLogger(__name__)
 
 class CollectAlphaESSUsage(Task):
 	title = "Collect AlphaESS Usage Data"
@@ -55,5 +57,7 @@ class CollectAlphaESSUsage(Task):
 			load=usage["pload"],
 			charge_level=usage["soc"]
 		)
-		print(datetime.now(timezone.utc), " ALPHAESS =", usage["pgrid"], " , ", usage["pload"])
+
+		LOGGER.info("Data received: pgrid=%s, pload=%s, soc=%s", usage["pgrid"], usage["pload"], usage["soc"])
+		#print(datetime.now(timezone.utc), " ALPHAESS =", usage["pgrid"], " , ", usage["pload"])
 		self._save_to_db(data)

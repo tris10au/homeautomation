@@ -1,12 +1,15 @@
 from openpower.amber import Amber
 from datetime import datetime, timezone
 import os
+import logging
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from . import Task
 from homeautomation.models.amber import *
 from sentry_sdk.crons import monitor
 
+
+LOGGER = logging.getLogger(__name__)
 
 class CollectAmberPrices(Task):
 	title = "Collect Amber Price Data"
@@ -50,7 +53,7 @@ class CollectAmberPrices(Task):
 		else:
 			self.frequency = delta + 5  # Offset to make sure it captures the new price
 
-		print("frequency = ", self.frequency)
+		LOGGER.info("Next update frequency = %s", self.frequency)
 
 	@monitor(monitor_slug="collect_amber_prices")
 	def do_task(self):
@@ -74,7 +77,7 @@ class CollectAmberPrices(Task):
 			tariff=general["tariffInformation"]["period"] if "tariffInformation" in general else None
 		)
 
-		print(datetime.now(timezone.utc), " AMBER =", general["perKwh"], feed_in["perKwh"])
+		LOGGER.info("Data received: grid=%s, feedIn=%s", general["perKwh"], feed_in["perKwh"])
 
 		self._save_to_db(data)
 		self.update_frequency(datetime.fromisoformat(general["endTime"]))

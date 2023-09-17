@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 import os
+import logging
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, text
 from . import Task
@@ -8,6 +9,9 @@ from homeautomation.models.alphaess import *
 from homeautomation.models.goodwe import *
 from homeautomation import notifications
 from sentry_sdk.crons import monitor
+
+
+LOGGER = logging.getLogger(__name__)
 
 
 class ControlGoodweInverter(Task):
@@ -120,13 +124,8 @@ class ControlGoodweInverter(Task):
 			should_be_on = 1
 
 		if is_change:
-			print("last_change=", last_change)
-			print("last_change_delta=", last_change_delta)
-			print("can_change=", can_change)
-			print("was_on=", was_on)
-			print("should_be_on=", should_be_on)
-			print("is_change=", is_change)
-			print(now, "GOODWE", " =", "Updating inverter to", should_be_on, "last change_delta =", last_change_delta, last_change)
+			LOGGER.info("Updating inverter state as should_be_on=%s, last_change_delta=%s", should_be_on, last_change_delta)
+
 			self._control_inverter(should_be_on, is_change)
 			event = GoodweEvent(
 				recorded_at=now,
@@ -136,4 +135,5 @@ class ControlGoodweInverter(Task):
 
 			self._save_to_db(event)		
 		else:
-			print(now, "GOODWE", " =", "No change", should_be_on)
+			LOGGER.info("No state change as should_be_on=%s, was_on=%s, last_change_delta=%s", should_be_on, was_on, last_change_delta)
+			#print(now, "GOODWE", " =", "No change", should_be_on)

@@ -1,4 +1,5 @@
 import os
+import logging
 from homeautomation.tasks.collect_alphaess_usage import CollectAlphaESSUsage
 from homeautomation.tasks.collect_amber_prices import CollectAmberPrices
 from homeautomation.tasks.control_goodwe_inverter import ControlGoodweInverter
@@ -20,6 +21,13 @@ sentry_sdk.init(
     profiles_sample_rate=1.0,
 )
 
+logging.basicConfig(
+	format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+	level=logging.INFO,
+	encoding="utf-8"
+)
+LOGGER = logging.getLogger(__name__)
+
 engine = create_engine(os.environ.get("DSN"))
 Base.metadata.create_all(engine)
 
@@ -31,6 +39,8 @@ tasks = [
 ]
 
 threads = []
+
+LOGGER.info("Starting all tasks")
 
 for task in tasks:
 	runnable = task(engine)

@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 import os
+import logging
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, text
 from . import Task
@@ -8,6 +9,9 @@ from homeautomation.models.alphaess import *
 from homeautomation.models.price_notifications import *
 from homeautomation import notifications
 from sentry_sdk.crons import monitor
+
+
+LOGGER = logging.getLogger(__name__)
 
 
 class NotifyPriceChanges(Task):
@@ -59,7 +63,7 @@ class NotifyPriceChanges(Task):
 
 		if price <= 0 and (last_notified_delta is None or last_notified_delta > self.NOTIFY_FREQUENCY):
 			notifications.send("Use more power!", "Grid prices are negative: " + str(round(price, 1)) + "c per kWh")
-			print(now, "NEGPRICE =", "Price is negative")
+			LOGGER.info("Price is negative: %s", price)
 
 			event = PriceNotification(
 				recorded_at=now,
@@ -69,7 +73,4 @@ class NotifyPriceChanges(Task):
 
 			self._save_to_db(event)
 		else:
-			print(now, "NEGPRICE =", "Price is not negative or not changed")
-
-
-
+			LOGGER.info("Price is not negative or has not changed")

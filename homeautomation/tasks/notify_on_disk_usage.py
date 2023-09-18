@@ -15,7 +15,7 @@ class NotifyDiskUsage(Task):
 	frequency = 300
 
 	NOTIFY_FREQUENCY = 8 * 60 * 60  # 2 hours
-	LIMIT = 20
+	LIMIT = 70
 
 	_last_notified = None
 

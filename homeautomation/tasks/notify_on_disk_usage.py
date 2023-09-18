@@ -38,4 +38,4 @@ class NotifyDiskUsage(Task):
 			notifications.send("Disk is getting full", "Usage is " + str(usage) + "%")
 			self._last_notified = now
 		else:
-			LOGGER.info("Disk usage is nominal at %s %", usage)
+			LOGGER.info("Disk usage is nominal at %s %%", usage)

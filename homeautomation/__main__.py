@@ -4,6 +4,7 @@ from homeautomation.tasks.collect_alphaess_usage import CollectAlphaESSUsage
 from homeautomation.tasks.collect_amber_prices import CollectAmberPrices
 from homeautomation.tasks.control_goodwe_inverter import ControlGoodweInverter
 from homeautomation.tasks.notify_negative_prices import NotifyPriceChanges
+from homeautomation.tasks.notify_on_disk_usage import NotifyDiskUsage
 from homeautomation.models.base import Base
 from sqlalchemy import create_engine
 import sentry_sdk
@@ -35,7 +36,8 @@ tasks = [
 	CollectAlphaESSUsage,
 	CollectAmberPrices,
 	ControlGoodweInverter,
-	NotifyPriceChanges
+	NotifyPriceChanges,
+	NotifyDiskUsage
 ]
 
 threads = []

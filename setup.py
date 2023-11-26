@@ -5,8 +5,8 @@ import sys
 requires = [
     "requests==2.31.0",
     "openpower==0.1.3",
-    "sentry-sdk==1.31.0",
-    "sqlalchemy==2.0.20",
+    "sentry-sdk==1.36.0",
+    "sqlalchemy==2.0.23",
     "mariadb==1.1.8",
 ]
 

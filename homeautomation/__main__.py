@@ -35,7 +35,7 @@ Base.metadata.create_all(engine)
 tasks = [
 	CollectAlphaESSUsage,
 	CollectAmberPrices,
-	ControlGoodweInverter,
+#	ControlGoodweInverter,
 	NotifyPriceChanges,
 	NotifyDiskUsage
 ]

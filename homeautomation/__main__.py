@@ -36,7 +36,7 @@ tasks = [
 	CollectAlphaESSUsage,
 	CollectAmberPrices,
 #	ControlGoodweInverter,
-	NotifyPriceChanges,
+#	NotifyPriceChanges,
 	NotifyDiskUsage
 ]
 

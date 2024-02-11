@@ -7,7 +7,7 @@ requires = [
     "openpower==0.1.3",
     "sentry-sdk==1.38.0",
     "sqlalchemy==2.0.25",
-    "mariadb==1.1.8",
+    "mariadb==1.1.10",
 ]
 
 setup(

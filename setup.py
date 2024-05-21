@@ -3,7 +3,7 @@ import sys
 
 
 requires = [
-    "requests==2.31.0",
+    "requests==2.32.0",
     "openpower==0.1.3",
     "sentry-sdk==1.45.0",
     "sqlalchemy==2.0.29",

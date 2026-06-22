@@ -49,6 +49,8 @@ class CollectAlphaESSUsage(Task):
 	@monitor(monitor_slug="collect_alphaess_usage")
 	def do_task(self):
 		usage = self._get_api().for_device(self._get_system_id()).get_realtime_power_usage()
+		print("Usage is below")
+		print(usage)
 		data = AlphaESSUsage(
 			recorded_at=datetime.now(timezone.utc),
 			solar_power=usage["ppv"],
